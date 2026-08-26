@@ -1,0 +1,9 @@
+mail
+admin
+administrator
+user
+dev
+deploy
+email
+root
+redirect
