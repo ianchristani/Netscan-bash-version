@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "DNS scan"
+echo "===== DNS scan ====="
+echo "by |/\|\|"
+echo "________________________________"
 echo "Entre com o dominio a ser pesquisado"
 read dominio
 resultado_total=""
@@ -14,6 +16,7 @@ do
 done < subdomain.txt
 
 echo -e "$resultado_total"
+echo "===== FIM ======"
 
 
 
