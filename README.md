@@ -1,6 +1,6 @@
 # Netscan Bash
 
-Simple network scanner written in pure Bash, for use in offensive security (pentest). Discovers active hosts on the local network via ICMP and scans TCP ports (1-1023) on the found hosts.
+Simple LOCAL network scanner written in pure Bash, for use in offensive security (pentest). Discovers active hosts on the local network via ICMP and scans TCP ports (1-1023) on the found hosts.
 
 ## ⚠️ Legal Notice
 
