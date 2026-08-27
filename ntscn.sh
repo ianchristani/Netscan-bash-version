@@ -36,23 +36,36 @@ if [ "$ipredefinder" -eq 3 ]; then
   done
 
 elif [ "$ipredefinder" -eq 2 ]; then
-  for ip1 in $ipdarede.{1..254}; do
-    for ip2 in $ip1.{1..254}; do
-      if [ $ip2 != $ip_addr ]; then
-        ping -c 1 -W 1 $ip2 &>/dev/null && lista_ips+=("$ip2") && echo "$ip2 está ativo"
-      fi
+  max_paralelo=50
+ 
+  while IFS= read -r ip; do
+      lista_ips+=("$ip")
+      echo "$ip está ativo"
+  done < <(
+    for ip1 in {0..255}; do
+      for ip2 in {1..254}; do
+        ip="$ipdarede.$ip1.$ip2"
+        if [ "$ip" != "$ip_addr" ]; then
+          (ping -c 1 -W 1 "$ip" &>/dev/null && echo "$ip") &
+          while (( $(jobs -rp | wc -l) >= max_paralelo )); do
+              wait -n
+          done
+        fi
+      done
     done
-  done
+    wait
+  )
+
 else
   echo "Abortando... rede classe A não suportada"
 fi
 
-
 echo "Total host up: ${#lista_ips[@]}"
-
 echo "***** Teste de portas *****"
+
 for ip in "${lista_ips[@]}"; do
   echo "IP target: $ip"
   nc -zvw1 $ip 1-1023 2>&1 | grep -i succeeded
 done
+
 echo "===== FIM ======"
