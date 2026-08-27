@@ -3,7 +3,7 @@
 echo "===== DNS scan ====="
 echo "by |/\|\|"
 echo "________________________________"
-echo "Entre com o dominio a ser pesquisado"
+echo "Enter the domain to be searched:"
 read dominio
 resultado_total=""
 # importando as linhas uma por uma, nao em uma variavel

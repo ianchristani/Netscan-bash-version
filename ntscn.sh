@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "===== Scan interno de rede ======"
+echo "===== Internal Net Scan ======"
 echo "by |/\|\|"
 echo "________________________________"
 
@@ -17,21 +17,21 @@ ipredefinder=$((mascara/8))
 # pegando o IP da rede
 ipdarede=$(echo $ip_addr | cut -d. -f1-$ipredefinder)
 
-echo "***** Informacoes gerais *****"
-echo "Interface em uso: $interface"
-echo "Meu IP: $ip_addr"
-echo "IP da rede: $ipdarede"
+echo "***** General Information *****"
+echo "Interface in use: $interface"
+echo "My IP: $ip_addr"
+echo "Network IP: $ipdarede"
 echo "CIDR: $mascara"
 echo "________________________________"
 
-echo "***** Teste de ICMP *****"
+echo "***** ICMP TEST *****"
 
 lista_ips=()
 
 if [ "$ipredefinder" -eq 3 ]; then
   for ip in $ipdarede.{1..254}; do
     if [ $ip != $ip_addr ]; then
-      ping -c 1 -W 1 $ip &>/dev/null && lista_ips+=("$ip") && echo "$ip está ativo"
+      ping -c 1 -W 1 $ip &>/dev/null && lista_ips+=("$ip") && echo "$ip is up"
     fi
   done
 
@@ -40,7 +40,7 @@ elif [ "$ipredefinder" -eq 2 ]; then
  
   while IFS= read -r ip; do
       lista_ips+=("$ip")
-      echo "$ip está ativo"
+      echo "$ip is up"
   done < <(
     for ip1 in {0..255}; do
       for ip2 in {1..254}; do
@@ -57,15 +57,15 @@ elif [ "$ipredefinder" -eq 2 ]; then
   )
 
 else
-  echo "Abortando... rede classe A não suportada"
+  echo "Aborting... Class A network not supported"
 fi
 
 echo "Total host up: ${#lista_ips[@]}"
-echo "***** Teste de portas *****"
+echo "***** Port Scan *****"
 
 for ip in "${lista_ips[@]}"; do
   echo "IP target: $ip"
   nc -zvw1 $ip 1-1023 2>&1 | grep -i succeeded
 done
 
-echo "===== FIM ======"
+echo "===== END ======"
