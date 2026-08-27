@@ -29,11 +29,13 @@ DNSSCAN
 - `ping`, `nc` (netcat), `awk`, `ip` (iproute2 packet), dig
 
 ## How to use
+Tool for bash, so:
 
-\`\`\`bash chmod +x ntscn.sh
-or chmod +x dnsscan.sh ./dnsscan.sh
-
-\`\`\`
+chmod +x ntscn.sh
+./dntscn.sh
+or 
+chmod +x dnsscan.sh 
+./dnsscan.sh
 
 ## Known limitations
 
