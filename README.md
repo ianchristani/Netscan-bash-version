@@ -21,6 +21,7 @@ NTSCN
 
 DNSSCAN
 - Subdomain scanner (bonus)
+- The file subdomain.txt is just for test, you can replace it for a more useful one.
 
 ## Requirements
 
